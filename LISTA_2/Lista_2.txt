@@ -1,0 +1,226 @@
+-- 1. Crie um banco de dados chamado 
+-- "ecommerce" com suporte a caracteres acentuados.
+create database MDC_ecommerce
+default collate utf8mb4_general_ci
+default charset = utf8mb4;
+
+use MDC_ecommerce;
+-- ////////////////////////////////////////////////////
+
+
+-- 2. Crie uma tabela "produtos" com as colunas: id (chave primária com auto
+-- incremento), nome e preco.
+create table Produtos_Lista (
+id int not null auto_increment,
+Nome varchar (30),
+Preço decimal (6,2),
+primary key (id)
+);
+-- /////////////////////////////////////////////////////////////////
+
+
+-- 3. Adicione uma coluna "descricao" à tabela "produtos" após a coluna "nome".
+alter table Produtos_Lista
+add column Descrição text after Nome;
+
+select * from Produtos_Lista;
+-- ///////////////////////////////////////////////////////////////////////////
+
+
+-- 4. Insira um produto na tabela "produtos" com os seguintes dados: 
+-- nome ="Camiseta", descricao = "Camiseta de algodão, tamanho M", preco = 29.90
+insert into Produtos_Lista values
+(default, 'Camiseta', 'Camiseta de Algodão - Tamanho M', '29.90'); 
+-- /////////////////////////////////////////////////////////////////////////////
+
+
+-- 5. Remova a coluna "descricao" da tabela "produtos".
+alter table Produtos_Lista
+drop column  Descrição;
+-- //////////////////////////////////////////////////////
+
+
+-- 6. Crie uma tabela "clientes" com as colunas: 
+-- id (chave primária com auto incremento) e nome.
+create table Clientes_Lista (
+id int not null auto_increment,
+Nome varchar (50),
+primary key (id)
+) default charset = utf8mb4;
+-- //////////////////////////////////////////////////////
+
+
+-- 7. Adicione as colunas "email" e "telefone" à tabela "clientes", 
+-- sendo "email" a primeira coluna e "telefone" após o "nome".
+alter table Clientes_Lista
+add column Email varchar (69) after id,
+add column Telefone int after Email;
+
+alter table Clientes_Lista
+modify column Telefone int after Nome;
+
+select * from Clientes_Lista;
+-- ///////////////////////////////////////////////////////////////////
+
+
+-- 8. Modifique a coluna "telefone" para aceitar apenas valores positivos.
+alter table Clientes_Lista
+modify column Telefone varchar (20);
+-- ///////////////////////////////////////////////////////////////////
+
+
+-- 9. Insira dois clientes na tabela "clientes".
+insert into Clientes_Lista values
+(default, 'joao.silva82@email.com', 'João Silva', '(15) 998412753'),
+(default, 'mariana.costa17@email.com', 'Mariana Costa', '(51) 997521846'),
+(default, 'lucasferreira.dev@email.com', 'Lucas Ferreira', '(44) 996337201');
+
+select * from Clientes_Lista;
+-- ----------------------------------------------------------------------------
+
+
+-- 10. Renomeie a tabela "clientes" para "usuarios".
+alter table Clientes_Lista
+rename to Usuarios_Lista;
+
+select * from Usuarios_Lista;
+-- --------------------------------------------------
+
+
+-- 11. Crie um banco de dados chamado "livraria".
+create database MDC_Livraria;
+use MDC_Livraria;
+-- -----------------------------------------------------
+
+
+-- 12. Crie uma tabela "livros" com as colunas: 
+-- titulo, autor e ano_publicacao.
+create table Livros_Lista (
+Titulo varchar (100),
+Autor varchar (50),
+Ano_Puclicação int
+)
+default collate utf8mb4_general_ci
+default charset = utf8mb4;
+
+drop table Livros_Lista;
+-- -----------------------------------------------------
+
+-- 13. Adicione uma coluna "id" como chave primária 
+-- com auto incremento no início da tabela "livros".
+alter table Livros_Lista 
+add column ID int not null primary key auto_increment first;
+-- -----------------------------------------------------
+
+
+-- 14. Adicione uma coluna "estoque" (tipo int) à tabela 
+-- "livros" com valor padrão 0.
+alter table Livros_Lista 
+add column Estoque int default 0;
+
+select * from Livros_Lista;
+-- -----------------------------------------------------------
+
+
+-- 15. Insira três livros na tabela "livros".
+insert into Livros_Lista values 
+(default, 'Dom Casmurro', 'Machado Assis', '1899', default),
+(default, 'O Hobbit', 'J.R.R. Tolkien', '1937', default),
+(default, '1984', 'George Orwell', '1949', default);
+-- -------------------------------------------------------------
+
+
+-- 16. Remova a tabela "livros" se ela existir.
+DROP TABLE IF EXISTS Livros_Lista;
+-- -------------------------------------------------------------
+
+
+-- 17. Crie um banco de dados chamado "rh".
+create database MDC_RH;
+use MDC_RH;
+-- -------------------------------------------------------------
+
+-- 18. Crie uma tabela "funcionarios" com as colunas: nome, cargo e salario.
+create table Funcionarios_Lista (
+Nome varchar (50),
+Carga varchar (70),
+Salário decimal (6,2)
+) default collate utf8mb4_general_ci
+default charset = utf8mb4;
+-- ----------------------------------------------------------------------
+
+
+-- 19. Adicione uma coluna "id" como chave primária com auto incremento 
+-- no início da tabela "funcionarios".
+alter table Funcionarios_Lista
+add column ID int not null primary key auto_increment first;
+-- -----------------------------------------------------------------------
+
+
+-- 20. Insira um funcionário na tabela "funcionarios".
+insert into Funcionarios_Lista values 
+(default, 'Carlos Souza' ,'Gerente', 8500),
+(default, 'Mariana Lima', 'Analista', 4200),
+(default, 'Pedro Alves', 'Desenvolvedor', 6700),
+(default, 'Juliana Costa', 'Designer', 3900);
+
+select * from Funcionarios_Lista;
+-- ------------------------------------------------------------------
+
+
+-- 21. Renomeie a coluna "salario" para "remuneracao" na tabela "funcionarios".
+alter table Funcionarios_Lista
+CHANGE COLUMN Salário Remuneração decimal (6,2);
+-- -----------------------------------------------------------------------------
+
+
+-- 22. Crie um banco de dados chamado "streaming".
+create database MDC_Streanming;
+use MDC_Streanming;
+-- -------------------------------------------------------------------------
+
+
+-- 23. Crie uma tabela "series" com as colunas: id, titulo, genero e num_temporadas.
+-- Defina a coluna "id" como chave primária com auto incremento e a coluna "titulo" como única.
+create table Series_Lista (
+id int not null auto_increment,
+Titulo varchar (100),
+Gênero varchar (20),
+Num_Temporadas int,
+primary key (id)
+) default collate utf8mb4_general_ci
+default charset = utf8mb4;
+-- -------------------------------------------------------------------------------------------
+
+
+-- 24. Insira duas séries na tabela "series".
+insert into Series_Lista values 
+(default, 'Breaking Bad', 'Drama', 5),
+(default, 'Stranger Things', 'Ficção Científica', 4),
+(default, 'The Office', 'Comédia', 9);
+
+select * from Series_Lista;
+-- -----------------------------------------------------------------------
+
+
+-- 25. Crie um banco de dados chamado "restaurante".
+create database MDC_Restaurante;
+use MDC_Restaurante;
+-- ----------------------------------------------------------------------
+
+
+-- 26. Crie uma tabela "pratos" com as colunas: nome, descricao e preco.
+create table Pratos_Lista (
+Nome varchar (50),
+Descrição text,
+Preço decimal (7,2)
+) default collate utf8mb4_general_ci
+default charset = utf8mb4;
+-- ---------------------------------------------------------------------
+
+
+-- 27. Adicione uma coluna "id" como chave primária com auto incremento 
+-- no início da tabela "pratos".
+alter table Pratos_Lista
+add column ID int not null primary key auto_increment first; 
+-- ------------------------------------------------------------------------

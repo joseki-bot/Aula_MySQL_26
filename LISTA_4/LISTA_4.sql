@@ -1,0 +1,119 @@
+-- Lista 4
+
+-- 1. Selecionando Todos os Dados de uma Tabela
+use escola;
+select * from alunos;
+-- //////////////////////////////////////////////////
+
+
+-- 2. Selecionando Dados por Nome Específico
+select * from alunos 
+where Nome = 'Mariana Costa';
+-- /////////////////////////////////////////////////////////
+
+
+-- 3. Ordenando Resultados por Nome em Ordem Decrescente
+select * from alunos
+order by Nome desc;
+-- /////////////////////////////////////////////////////
+
+
+-- 4. Selecionando Colunas Específicas de uma Tabela
+select Turma from alunos;
+-- ///////////////////////////////////////////////////
+
+
+-- 5. Filtrando Dados por Ano Igual ou Anterior a 2016
+use mdc_biblioteca;
+select * from livros_lista;
+
+select * from livros_lista
+where Ano_Publicação <= 2016;
+-- //////////////////////////////////////////////////////////
+
+
+-- 6. Usando Operadores Relacionais para Comparar Valores
+use mdc_empresa;
+select * from funcionarios_lista;
+
+select * from funcionarios_lista
+where Cargo != 'gerente';
+-- //////////////////////////////////////////////////////
+
+
+-- 7. Filtrando Dados por Intervalo de Valores (BETWEEN)
+select * from funcionarios_lista
+where Salario BETWEEN  2000 and 9000;
+-- ////////////////////////////////////////////////////////
+
+
+-- 8. Combinando Condições com AND e OR
+use mdc_empresa;
+select *  from funcionarios_lista;
+
+select * from funcionarios_lista
+WHERE Salario >= 9000 AND Cargo = 'Gerente';
+-- //////////////////////////////////////////////////////////
+
+
+-- 9. Selecionando Registros que Contém um Valor Específico (IN)
+select * from funcionarios_lista
+where Salario 
+in (3000,3100);
+-- /////////////////////////////////////////////////////////////
+
+
+-- 10. Utilizando o Operador de União (|) para Combinar Resultados
+use escola;
+
+select nome
+from alunos
+union
+select nome
+from professores_lista;
+-- //////////////////////////////////////////////////////////////////////
+
+
+-- 11. Buscando Nomes que Começam com 'Maria' (LIKE e Wildcard)
+select * from funcionarios_lista
+where Nome like '%Maria%';
+-- ///////////////////////////////////////////////////////////////
+
+
+-- 12. Atualizando o Email de um Aluno Específico
+use escola;
+select * from alunos;
+
+update alunos 
+set email = 'Ferriras_Luccas@gmail.com'
+where id = '2';
+-- //////////////////////////////////////////////////////////
+
+
+-- 13. Removendo Registros Duplicados (DISTINCT)
+insert into alunos values
+(default, 'Luis Carlos', '2004-12-08', '7B', 'Luiscarlos@gmail.com'),
+(default, 'Maria Rosa', '2005-04-25', '1A', 'MariaaRosa@gmail.com'),
+(default, 'Luis Carlos', '2004-12-08', '7B', 'Luiscarlos@gmail.com');
+
+select * from alunos;
+
+select distinct nome
+from alunos;
+-- //////////////////////////////////////////////////////////////////
+
+
+-- 14. Contando o Número de Alunos por Curso (COUNT)
+select count(*) from alunos;
+-- ///////////////////////////////////////////////////////////////////
+
+
+-- 15. Calculando a Média, Máximo e Mínimo de Salários (AVG, MAX, MIN)
+use mdc_empresa;
+
+select avg(salario) from funcionarios_lista;
+
+select max(salario) from funcionarios_lista;
+
+select min(salario) from funcionarios_lista;
+-- //////////////////////////////////////////////////////////////////

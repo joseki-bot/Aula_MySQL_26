@@ -1,0 +1,138 @@
+-- Lista 3
+-- 1. Atualize a turma do aluno com ID 3 para '9A'
+use escola;
+insert into alunos values
+(default, 'Lucas Ferreira', '2008-04-12', '7A', 'lucasferreira@gmail.com'),
+(default, 'Mariana Costa', '2010-09-25', '5A', 'marianacosta@gmail.com'),
+(default, 'Pedro Henrique', '2007-01-18', '9A', 'pedrohenrique@gmail.com'),
+(default, 'Amanda Souza', '2011-06-30', '3A', 'amandasouza@gmail.com');
+
+select * from alunos;
+
+update alunos
+set turma = '9A'
+where id = '3';
+-- ///////////////////////////////////////////////////////////
+
+
+-- 2. Remova todos os alunos da turma '8B'
+insert into alunos values 
+(default, 'Roberto Santos',  '2003-08-25', '1B', 'santosRoberto@gmail.com'),
+(default, 'Santana Motto',  '2005-10-02', '8B', 'MootoSantana@gmail.com');
+
+delete from alunos 
+where turma = '8B'; 
+
+select * from alunos;
+-- ///////////////////////////////////////////////////////////////////////////
+
+
+-- 3 Remova todos os registros da tabela "alunos"
+truncate table alunos;
+select * from alunos;
+-- ////////////////////////////////////////////////////////////////
+
+
+-- 4. Atualize o email do aluno com nome 'João Silva' para
+-- 'joaosilva@novoemail.com'.
+-- COMENTÁRIO : Bah sor, fez apagar toda a lista para modificar o nome dps, sacanagem
+
+insert into alunos values 
+(default, "João Silva", '2005-03-15', "8A", "joao.silva@email.com");
+desc alunos;
+
+update alunos 
+set Email = 'joaosilva@novoemail.com'
+where  Nome = "João Silva";
+
+select * from alunos;
+-- ///////////////////////////////////////////////////////////
+
+
+-- 5. Remova o aluno com ID 5
+insert into alunos values
+(default, 'Lucas Ferreira', '2008-04-12', '7A', 'lucasferreira@gmail.com'),
+(default, 'Mariana Costa', '2010-09-25', '5A', 'marianacosta@gmail.com'),
+(default, 'Pedro Henrique', '2007-01-18', '9A', 'pedrohenrique@gmail.com'),
+(default, 'Amanda Souza', '2011-06-30', '3A', 'amandasouza@gmail.com');
+
+delete from alunos 
+where id = '5';
+
+select * from alunos;
+-- /////////////////////////////////////////////////////////////////////////
+
+
+-- 6. Atualize a data de nascimento de todos os alunos para um ano antes.
+desc alunos;
+
+ALTER TABLE Alunos
+RENAME COLUMN Data_Nascimeneto TO Data_Nascimento;
+
+UPDATE Alunos
+SET Data_Nascimento = DATE_SUB(Data_Nascimento, INTERVAL 1 YEAR);
+
+select * from alunos;
+-- /////////////////////////////////////////////////////////////////////////////////////
+
+
+-- 7. Remova todos os alunos que não possuem email cadastrado.
+insert into alunos values 
+(default, 'Amanda Souza', '2011-06-30', '3A', default);
+select * from alunos;
+
+delete from alunos 
+where Email is null;
+-- /////////////////////////////////////////////////////////////////
+
+
+-- 8. Crie uma tabela "professores" com as colunas: id, nome, disciplina e salario.
+desc professores_lista;
+select *  from professores_lista;
+-- COMENTARIO = EU já tinha ela pronta, vou usar ela então
+-- ///////////////////////////////////////////////////////////////////
+
+
+-- 9. Insira no mínimo 4 professores na tabela "professores".
+insert into professores_lista values
+(default, 'Ricardo Almeida', 'Geografia', 5400.00),
+(default, 'Patricia Gomes', 'Português', 8900.00);
+
+select * from professores_lista;
+-- /////////////////////////////////////////////////////////////////
+
+
+-- 10. Dê um aumento de 10% para os 2 primeiros funcionários cadastrados na
+-- tabela (considerando a ordem de inserção)
+use mdc_empresa;
+select * from funcionarios_lista;
+
+UPDATE funcionarios_lista
+SET Sálario = Sálario * 1.10
+WHERE id <= 2;
+-- ///////////////////////////////////////////////////////////////////////////////
+
+
+-- 11. Remova os 3 funcionários com ID de 1 a 3.
+delete from funcionarios_lista
+where id <= 3;
+
+select * from funcionarios_lista;
+-- ///////////////////////////////////////////
+
+
+-- 12. Atualize o cargo dos 2 funcionários com salário acima de 5000 para 'Gerente'.
+insert into funcionarios_lista values
+(default, 'Eduardo Martins', 'Coordenador', 7600.00, '2019-05-14'),
+(default, 'Camila Rocha', 'Recepcionista', 2800.00, '2023-02-08'),
+(default, 'Thiago Pereira', 'Analista de Sistemas', 9400.00, '2020-09-27');
+
+select * from funcionarios_lista;
+
+alter table funcionarios_lista
+rename column Sálario to Salario;
+
+update funcionarios_lista
+set Cargo = 'Gerente'
+where Salario >= 5000;
+-- ////////////////////////////////
