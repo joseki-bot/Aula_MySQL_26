@@ -1,0 +1,103 @@
+-- ● Livros:
+-- ○ livros: id, titulo, genero, autor_id
+create database MDC_Livros
+default collate utf8mb4_general_ci
+default charset = utf8mb4;
+use mdc_livros;
+
+-- ○ autores: id, nome, nacionalidade
+create table Autores_lista (
+id int not null auto_increment primary key,
+Nome varchar (50),
+Nascionalidade varchar (30)
+)  default charset utf8mb4;
+
+-- ○ livros: id, titulo, genero, autor_id
+create table Livros_Lista (
+id int not null auto_increment primary key,
+Titulo varchar (50),
+Genero varchar (10),
+Autor_id int,
+foreign key (Autor_id) references Autores_lista (id)
+)  default charset utf8mb4;
+drop table Livros_Lista;
+drop table Autores_lista;
+
+-- /////////////////////////////////////////////////////////////
+
+
+-- 3. Listar o título dos livros e a nacionalidade do autor.
+select L.Titulo `Livro`,
+A.nome `Escritor` 
+from Autores_Lista as A
+inner join Livros_Lista as L
+on L.Autor_id = A.id;
+
+
+insert into Autores_Lista values
+(default, 'J. K. Rowling', 'Britânica'),
+(default, 'Machado de Assis', 'Brasileira'),
+(default, 'George Orwell', 'Britânica'),
+(default, 'Stephen King', 'Americana'),
+(default, 'Rick Riordan', 'Americana');
+
+insert into Livros_Lista values
+(default, 'Harry Potter e a Pedra Filosofal', 'Fantasia', 1),
+(default, 'Dom Casmurro', 'Romance', 2),
+(default, '1984', 'Ficção', 3),
+(default, 'It: A Coisa', 'Terror', 4),
+(default, 'Percy Jackson e o Ladrão de Raios', 'Aventura', 5);
+-- ///////////////////////////////////////////////////////////////////
+
+
+-- 8. Listar todos os livros, mesmo que não estejam associados a um autor.
+use mdc_livros;
+
+select Titulo `Livros`
+from Livros_Lista;
+-- /////////////////////////////////////////////////////////////////////
+
+
+-- 9. Listar todos os autores, mesmo que não tenham livros publicados.
+select nome `Escritores` 
+from Autores_Lista;
+-- ////////////////////////////////////////////////////////////////////
+
+
+-- 12. Listar os títulos dos livros de autores brasileiros.
+use mdc_livros;
+
+select L.Titulo `Livro`,
+A.nome `Escritor` ,
+A.Nascionalidade
+from Autores_Lista as A
+inner join Livros_Lista as L
+on L.Autor_id = A.id
+where Nascionalidade = 'Brasileira';
+-- ///////////////////////////////////////////////////////////////////
+
+
+-- 15. Listar os títulos dos livros e o nome do autor, ordenados pelo título do
+-- livro em ordem alfabética.
+use mdc_livros;
+
+select L.Titulo `Livro`,
+A.nome `Escritor`
+from Autores_Lista as A
+inner join Livros_Lista as L
+on L.Autor_id = A.id
+order by L.Titulo asc;
+-- //////////////////////////////////////////////////////////////////////////
+
+
+-- 19. Listar os autores que possuem livros publicados em mais de um gênero.
+use mdc_livros;
+
+select a.Nome `Autor`,
+count(distinct l.Genero) `Quantidade de Generos`
+from Autores_Lista as a
+inner join Livros_Lista as l
+on l.Autor_id = a.id
+group by a.Nome
+having count(distinct l.Genero) > 1;
+-- //////////////////////////////////////////////////////////////////////////
