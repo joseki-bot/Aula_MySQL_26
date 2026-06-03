@@ -1,0 +1,64 @@
+-- PROVA
+
+create database MDC_Empresa_Games
+default collate utf8mb4_general_ci
+default charset = utf8mb4;
+
+use MDC_Empresa_Games;
+
+create table RE_Salas (
+ID int not null auto_increment primary key,
+Nome varchar (50),
+Andar int
+) default charset utf8mb4;
+
+desc RE_Salas;
+
+create table RE_Intens (
+ID int not null auto_increment primary key,
+Item varchar (50),
+Tipo varchar (10),
+Usa_Espaço int unsigned,
+Sala int,
+foreign key (Sala) references RE_Salas (ID)
+) default charset utf8mb4;
+drop table RE_Intens;
+
+
+insert into RE_Salas values 
+(1, 'Saguão Principal', 1),
+(2, 'Laboratório', 3),
+(3, 'Quarto Principal', 2),
+(4, 'Banheiro', 2 );
+
+select * from RE_Salas;
+
+insert into RE_Intens values 
+(default, 'Pistola', 'Arma', 4, 1),
+(defaulT, 'Mandagura', 'Erva', 2, 3),
+(default, 'Kit Médico', 'Cura', 4, 2),
+(default, 'Bala 5mm', 'Munição', 1, 1);
+
+select * from RE_Intens;
+
+update RE_Intens
+set Item = 'Bala 9mm'
+where id = 4;
+
+
+select I.Item `ITEM`,
+S.Nome `SALA`
+from RE_Intens as I
+inner join RE_Salas as S
+on I.Sala = S.ID
+order by S.ID asc;
+
+select * from  RE_Intens
+where Tipo LIKE '%munição%';
+
+
+truncate table RE_Intens; 
+-- ⬆️ Usado para limpar os dados, mas não apaga a estrutura
+
+select * from RE_Intens; -- mostra os dados
+desc RE_Intens; -- Mostra a estrutura e suas variaveis 
